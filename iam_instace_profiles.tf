@@ -51,7 +51,42 @@ data "aws_iam_policy_document" "control_plane_ec2" {
 
     actions = [
       "ec2:*",
+    ]
+
+    resources = [
+      "*",
+    ]
+  }
+
+  statement {
+    effect = "Allow"
+
+    actions = [
       "elasticloadbalancing:*",
+    ]
+
+    resources = [
+      "*",
+    ]
+  }
+
+  statement {
+    effect = "Allow"
+
+    actions = [
+      "route53:*",
+    ]
+
+    resources = [
+      "*",
+    ]
+  }
+
+  statement {
+    effect = "Allow"
+
+    actions = [
+      "ecr:*",
     ]
 
     resources = [
@@ -68,6 +103,17 @@ data "aws_iam_policy_document" "nodes_ec2" {
       "ec2:Describe*",
       "ec2:AttachVolume",
       "ec2:DetachVolume",
+   ]
+
+    resources = [
+      "*",
+    ]
+  }
+
+  statement {
+    effect = "Allow"
+
+    actions = [
       "ecr:GetAuthorizationToken",
       "ecr:BatchCheckLayerAvailability",
       "ecr:GetDownloadUrlForLayer",
