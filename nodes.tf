@@ -61,15 +61,6 @@ data "template_file" "nodes" {
   }
 }
 
-data "template_file" "kubeadm_join" {
-  template = "${file("${path.root}/kubeadm_join.tpl")}"
-
-  vars {
-    k8s_token        = "${var.k8s_token}"
-    control_plane_ip = "${aws_instance.control_plane.private_ip}"
-  }
-}
-
 data "template_cloudinit_config" "nodes" {
   gzip          = false
   base64_encode = false
