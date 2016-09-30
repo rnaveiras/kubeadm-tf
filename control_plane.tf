@@ -75,6 +75,8 @@ resource "aws_instance" "control_plane" {
     "${aws_security_group.allow_https.id}",
   ]
 
+  source_dest_check = false
+
   iam_instance_profile = "${aws_iam_instance_profile.control_plane.name}"
   key_name             = "${aws_key_pair.kube.key_name}"
 

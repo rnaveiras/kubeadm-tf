@@ -24,6 +24,7 @@ packages:
   - tmux
   - rsync
   - keychain
+  - awscli
 
 runcmd:
   - apt-key adv --keyserver hkp://keyserver.ubuntu.com --recv-keys 0xF76221572C52609D 0x3746C208A7317B0F

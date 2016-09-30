@@ -101,6 +101,7 @@ data "aws_iam_policy_document" "nodes_ec2" {
 
     actions = [
       "ec2:Describe*",
+      "ec2:ModifyInstanceAttribute",
       "ec2:AttachVolume",
       "ec2:DetachVolume",
    ]
