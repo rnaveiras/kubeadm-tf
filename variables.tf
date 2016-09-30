@@ -10,6 +10,7 @@ variable "aws_profile" {
 
 variable "key_name" {
   type = "string"
+  default = "id_rsa"
 }
 
 // settings only valid for eu-west-1
