@@ -24,7 +24,7 @@ $ terraform destroy -var k8s_token=$KUBEADM_TOKEN
 After the terraform plan has been executed successful, you can `ssh` to the control plane node:
 
 ```shell
-ssh $(terraform output |grep 'control_plane.public_ip' | cut -d'=' -f2) -lubuntu
+ssh $(terraform output control_plane.public_ip) -lubuntu
 
 ```
 
