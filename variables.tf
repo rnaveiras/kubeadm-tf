@@ -54,6 +54,7 @@ variable "vpc_cidr_block" {
 
 variable "stage" {
   type = "string"
+  default = "staging"
 }
 
 variable "route53_internal_domain" {
