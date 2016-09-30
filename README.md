@@ -3,7 +3,9 @@
 ## Getting Started
 
 ```
-$ terraform plan -var stage=staging -var key_name=<key-name> -var k8s_token=<kubeadm token>
+$ KUBEADM_TOKEN=$(go run token.go | awk -F': ' '{print $2}')
 
-$ terraform apply -var stage=staging -var key_name=<key-name> -var k8s_token=<kubeadm token>
+$ terraform plan -var stage=staging -var key_name=id_rsa -var k8s_token=$KUBEADM_TOKEN
+
+$ terraform apply -var stage=staging -var key_name=id_rsa -var k8s_token=$KUBEADM_TOKEN
 ```
