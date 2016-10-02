@@ -78,10 +78,9 @@ All instances are setup with docker and kubeadm using cloud init.
 - `stage`: Name that is attached to may of the resources created at AWS. By default `staging`. You can uses this name to setup different AWS VPC
 - `k8s_token`: Kubeadm token needs for the nodes to join the Kubernetes cluster. The token needs to generated ahead and provide as a seed to the control plane and nodes inside the autoscaler group.
 - `nodes_num`: Number of nodes inside the AWS autoscaler group, by default 1. You can provide the number of nodes wanted. e.g. `terraform apply -var 'nodes_num="3"'`
+- `aws_region`: Name of the AWS region where you want to deploy the Kubernetes cluster. By default `eu-west-1`. You can provide any other e.g. `terraform apply -var aws_region=us-east-1`
 
 ## Notes
-
-- Currently, is only support the `eu-west-1` because the way that aws subnets are handle. You can see more at `vpc.tf`. Support other AWS regions will be a straightforward change.
 
 - The Kubernetes cluster is bootstrap without a specify cloud provider, even `kubeadm` allow the option, there is a open issue where the `control-manager` cannot connect to the AWS API because the container doesn't have TLS certificates. https://github.com/kubernetes/kubernetes/pull/33681
 
@@ -90,4 +89,3 @@ All instances are setup with docker and kubeadm using cloud init.
 ## Acknowledgements
 
 * Thanks to the authors of kubeadm and [its getting started guide](http://kubernetes.io/docs/getting-started-guides/kubeadm/)
-
