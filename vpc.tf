@@ -9,6 +9,12 @@ resource "aws_vpc" "platform" {
   }
 }
 
+
+// list of az which can be access from the current region
+data "aws_availability_zones" "az" {
+  state = "available"
+}
+
 resource "aws_vpc_dhcp_options" "platform" {
   domain_name         = "${var.aws_region}.compute.internal"
   domain_name_servers = ["AmazonProvidedDNS"]
@@ -35,12 +41,12 @@ resource "aws_internet_gateway" "platform" {
 
 resource "aws_subnet" "public" {
   vpc_id            = "${aws_vpc.platform.id}"
-  availability_zone = "${var.aws_region}${lookup(var.subnet_azs, count.index)}"
+  availability_zone = "${element(data.aws_availability_zones.az.names, count.index)}"
   cidr_block        = "${lookup(var.public_subnet_blocks, count.index)}"
   count             = "${var.num_public_subnets}"
 
   tags {
-    Name = "public-${var.aws_region}${lookup(var.subnet_azs, count.index)}"
+    Name = "public-${element(data.aws_availability_zones.az.names, count.index)}"
   }
 
   map_public_ip_on_launch = true
@@ -49,12 +55,12 @@ resource "aws_subnet" "public" {
 
 resource "aws_subnet" "private" {
   vpc_id            = "${aws_vpc.platform.id}"
-  availability_zone = "${var.aws_region}${lookup(var.subnet_azs, count.index)}"
+  availability_zone = "${element(data.aws_availability_zones.az.names, count.index)}"
   cidr_block        = "${lookup(var.private_subnet_blocks, count.index)}"
   count             = "${var.num_private_subnets}"
 
   tags {
-    Name = "private-${var.aws_region}${lookup(var.subnet_azs, count.index)}"
+    Name = "private-${element(data.aws_availability_zones.az.names, count.index)}"
   }
 }
 
@@ -81,7 +87,7 @@ resource "aws_route_table" "private" {
   }
 
   tags {
-    Name  = "${var.stage}-private-${var.aws_region}${lookup(var.subnet_azs, count.index)}"
+    Name  = "${var.stage}-private-${element(data.aws_availability_zones.az.names, count.index)}"
     Stage = "${var.stage}"
   }
 

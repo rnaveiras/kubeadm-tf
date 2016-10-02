@@ -13,18 +13,6 @@ variable "key_name" {
   default = "id_rsa"
 }
 
-// settings only valid for eu-west-1
-variable "subnet_azs" {
-  type        = "map"
-  description = "Availability zones for each subnet"
-
-  default = {
-    "0" = "a"
-    "1" = "b"
-    "2" = "c"
-  }
-}
-
 variable "public_subnet_blocks" {
   type        = "map"
   description = "CIDR blocks for each subnet"
